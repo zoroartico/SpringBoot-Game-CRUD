@@ -15,6 +15,8 @@ public class GameService {
     public Game saveGame(Game game) {
         return gameRepository.save(game);
     }
+    //deletes game through gameRepo
+    public void deleteGame(int id) { gameRepository.delete(id); }
     //finds game through gameRepo
     public Game findById(int id) {
         return gameRepository.findById(id);
