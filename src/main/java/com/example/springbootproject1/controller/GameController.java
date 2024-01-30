@@ -4,6 +4,7 @@ import com.example.springbootproject1.entity.Game;
 import com.example.springbootproject1.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,12 @@ public class GameController {
 
     // Add a new game
     @PostMapping("/add")
-    public Game createGame(@RequestBody Game game) {
-        return gameService.saveGame(game);
+    public ResponseEntity<?> createGame(@RequestBody Game game) {
+        if (game == null || game.getTitle() == null || game.getTitle().trim().isEmpty())
+            return ResponseEntity.badRequest().body("Invalid title.");
+        if (game.getRating() == null || game.getRating() < 0.0 || game.getRating() > 5.0)
+            return ResponseEntity.badRequest().body("Rating must be between 1-5");
+        return ResponseEntity.ok(gameService.saveGame(game));
     }
 
     // Retrieve all games
