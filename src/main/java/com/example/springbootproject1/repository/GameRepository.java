@@ -12,7 +12,7 @@ public class GameRepository {
     private int gameCounter=1;
 
     //gets game list
-    private final List<Game> list = new ArrayList<>();
+    private final List<Game> list = new ArrayList<Game>();
 
     //gets all games
     public List<Game> getAllGames() {
@@ -30,6 +30,7 @@ public class GameRepository {
     //saves games through post
     public Game save(Game game) {
         game.setId(gameCounter++);
+        list.add(game);
         return game;
     }
 

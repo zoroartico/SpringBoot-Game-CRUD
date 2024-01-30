@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 //Routing all endpoints through /game
-@RequestMapping("/game")
+@RequestMapping("/api/game")
 public class GameController {
 
     @Autowired
