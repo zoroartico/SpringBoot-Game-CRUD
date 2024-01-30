@@ -34,6 +34,8 @@ public class GameRepository {
         return game;
     }
 
+    public Game update(Game game) { list.add(game); return game; }
+
     //deletes game through post
     public void delete(int id){
         list.removeIf(game -> game.getId() == id);

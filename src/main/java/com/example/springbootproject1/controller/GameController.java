@@ -47,16 +47,19 @@ public class GameController {
 
     // Update an existing game
     @PutMapping("/update/{gameId}")
-    public Game updateGame(@PathVariable int gameId, @RequestBody Game updatedGame) {
+    public ResponseEntity<?> updateGame(@PathVariable int gameId, @RequestBody Game updatedGame) {
         Game existingGame = gameService.findById(gameId);
         if (existingGame != null) {
+            if ( !valid.String(updatedGame.getTitle()) )
+                return ResponseEntity.badRequest().body("Invalid title.");
+            if ( !( valid.Number(updatedGame.getRating()) &&
+                    valid.Range(updatedGame.getRating(),0.0,5.0)) )
+                return ResponseEntity.badRequest().body("Rating must be between 1-5");
             existingGame.setTitle(updatedGame.getTitle());
             existingGame.setRating(updatedGame.getRating());
-            return gameService.saveGame(existingGame);
+            return ResponseEntity.ok(gameService.updateGame(existingGame));
         }
-         else {
-            throw new RuntimeException("Game not found with id: " + gameId);
-        }
+        return ResponseEntity.badRequest().body("Game not found with id: " + gameId);
     }
 
     // Delete a game by id
