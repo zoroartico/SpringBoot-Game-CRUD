@@ -2,6 +2,7 @@ package com.example.springbootproject1.controller;
 
 import com.example.springbootproject1.entity.Game;
 import com.example.springbootproject1.service.GameService;
+import com.example.springbootproject1.service.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,17 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+    private final Validate valid = new Validate();
 
     // Add a new game
     @PostMapping("/add")
     public ResponseEntity<?> createGame(@RequestBody Game game) {
-        if (game == null || game.getTitle() == null || game.getTitle().trim().isEmpty())
+        //checks if game title is empty(this also will trigger if object is empty)
+        if ( !valid.String(game.getTitle()) )
             return ResponseEntity.badRequest().body("Invalid title.");
-        if (game.getRating() == null || game.getRating() < 0.0 || game.getRating() > 5.0)
+        //checks if game rating is valid and within range
+        if ( !( valid.Number(game.getRating()) &&
+                valid.Range(game.getRating(),0.0,5.0)) )
             return ResponseEntity.badRequest().body("Rating must be between 1-5");
         return ResponseEntity.ok(gameService.saveGame(game));
     }
