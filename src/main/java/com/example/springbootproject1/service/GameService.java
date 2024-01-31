@@ -2,6 +2,7 @@ package com.example.springbootproject1.service;
 
 import com.example.springbootproject1.entity.Game;
 import com.example.springbootproject1.repository.GameRepository;
+import com.example.springbootproject1.util.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

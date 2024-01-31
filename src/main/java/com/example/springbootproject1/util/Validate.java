@@ -1,4 +1,4 @@
-package com.example.springbootproject1.service;
+package com.example.springbootproject1.util;
 
 //class created to streamline data validation throughout application
 //returns false if argument does not pass basic validation checks for its type
