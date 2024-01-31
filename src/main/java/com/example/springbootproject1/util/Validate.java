@@ -25,6 +25,7 @@ public class Validate {
     }
 
     //uses generics to validate multiple Number data types without method repetition, eg: int, double, short etc
+    //T must be child of class Number and interfaces Comparable, eg: must be able to compare with itself
     public <T extends Number & Comparable<T>> boolean Range(T value, T min, T max){
         if (value == null)
             return false;
