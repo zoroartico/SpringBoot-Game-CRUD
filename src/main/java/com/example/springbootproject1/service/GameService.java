@@ -18,6 +18,7 @@ public class GameService {
 
     //saves game through gameRepo
     public ResponseEntity<?> saveGame(Game game) {
+        //validating title is notnull and rating is withing range
         if ( valid.String(game.getTitle()) && valid.Range(game.getRating(),1.0,5.0) )
             message = ResponseEntity.ok("Success.\n"+gameRepository.save(game));
         else
@@ -25,9 +26,13 @@ public class GameService {
         return message;
     }
 
+    //updates game through gameRepo
     public ResponseEntity<?> updateGame(int gameId, Game updatedGame) {
+        //validating game exists before attempting updating values
         Game existingGame = findById(gameId);
         if(valid.Object(existingGame)){
+
+            //validating title and rating notnull and rating is within range before update
             if ( valid.String(updatedGame.getTitle()) && valid.Range(updatedGame.getRating(),1.0,5.0) ) {
                 existingGame.setTitle(updatedGame.getTitle());
                 existingGame.setRating(updatedGame.getRating());
@@ -40,6 +45,7 @@ public class GameService {
     }
     //deletes game through gameRepo
     public ResponseEntity<?> deleteGame(int id) {
+        //validates game exists before attempting delete
         if (valid.Object(findById(id))){
             gameRepository.delete(id);
             message = ResponseEntity.ok("Deleted.");
@@ -48,11 +54,11 @@ public class GameService {
         return message;
     }
 
-    //finds game through gameRepo
+    //finds game through gameRepo by matching id
     public Game findById(int id) {
         return gameRepository.findById(id);
     }
-    //retrieves all games through gameRepo;
+    //retrieves all games as list through gameRepo;
     public List<Game> getAllGames() {
         return gameRepository.getAllGames();
     }
