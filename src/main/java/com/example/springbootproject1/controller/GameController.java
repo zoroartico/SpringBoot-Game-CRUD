@@ -19,7 +19,7 @@ public class GameController {
 
     // Retrieve a specific game by ID
     @GetMapping("/{gameId}")
-    public Game getGameById(@PathVariable int gameId) {
+    public ResponseEntity<?> getGameById(@PathVariable int gameId) {
         return gameService.findById(gameId);
     }
 

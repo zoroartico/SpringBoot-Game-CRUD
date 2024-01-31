@@ -1,5 +1,9 @@
 package com.example.springbootproject1.util;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+
 //class created to streamline data validation throughout application
 //returns false if argument does not pass basic validation checks for its type
 public class Validate {
@@ -9,6 +13,10 @@ public class Validate {
     }
     public boolean String(String string) {
         return string != null && !string.trim().isEmpty();
+    }
+    //checks if ResponseEntity is badRequest() or ok()
+    public boolean Response(ResponseEntity<?> response){
+        return response.getStatusCode() == HttpStatus.OK;
     }
 
     //checks if child of Number is null
