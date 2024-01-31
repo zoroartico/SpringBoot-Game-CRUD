@@ -1,3 +1,10 @@
+/*
+ * CPRO 2221 A - Java EE
+ * Spring Boot Single Entity CRUD
+ *
+ * Kaden de Frece
+ * 000364780
+ */
 package com.example.springbootproject1;
 
 import org.springframework.boot.SpringApplication;
